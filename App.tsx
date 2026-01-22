@@ -203,7 +203,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-bone dark:bg-darkbg selection:bg-notion-hover dark:selection:bg-notion-darkHover selection:text-notion-text dark:selection:text-notion-darkText overflow-x-hidden transition-colors duration-500">
-      <header className="max-w-7xl mx-auto pt-10 pb-8 px-10 flex justify-between items-end">
+      <header className="max-w-7xl mx-auto pt-10 pb-8 px-4 sm:px-10 flex justify-between items-end">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -232,7 +232,7 @@ const App: React.FC = () => {
         </motion.div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-10 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-10 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column (8 units) */}
         <div className="lg:col-span-8 space-y-8">
           <Calendar 

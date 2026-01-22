@@ -57,8 +57,8 @@ const Calendar: React.FC<CalendarProps> = ({ events, onAddEvent, onEventClick })
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="bg-white dark:bg-[#1C1C1E] rounded-[2rem] p-6 border border-notion-border dark:border-notion-darkBorder transition-colors duration-500 shadow-sm"
     >
-      <div className="flex items-center justify-between mb-4 px-2">
-        <div className="flex items-center gap-6">
+      <div className="flex flex-col sm:flex-row items-center justify-between mb-6 px-2 gap-4 sm:gap-0">
+        <div className="flex items-center justify-between w-full sm:w-auto gap-6">
           <motion.h2 
             key={monthName}
             initial={{ opacity: 0, x: -10 }}
@@ -81,7 +81,7 @@ const Calendar: React.FC<CalendarProps> = ({ events, onAddEvent, onEventClick })
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => onAddEvent()}
-          className="flex items-center gap-2 bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg px-6 py-3 rounded-full font-medium text-sm transition-colors"
+          className="w-full sm:w-auto flex justify-center items-center gap-2 bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg px-6 py-3 rounded-full font-medium text-sm transition-colors"
         >
           <Plus className="w-4 h-4" />
           <span>New Event</span>
@@ -96,16 +96,16 @@ const Calendar: React.FC<CalendarProps> = ({ events, onAddEvent, onEventClick })
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-px bg-notion-border dark:bg-notion-darkBorder rounded-3xl overflow-hidden border border-notion-border dark:border-notion-darkBorder shadow-sm">
+      <div className="grid grid-cols-7 gap-px bg-notion-border dark:bg-notion-darkBorder rounded-2xl sm:rounded-3xl overflow-hidden border border-notion-border dark:border-notion-darkBorder shadow-sm">
         {calendarGrid.map((day, idx) => (
           <div 
             key={idx} 
-            className={`min-h-[90px] bg-white dark:bg-[#1C1C1E] p-2 group transition-colors duration-300 hover:bg-notion-hover/40 dark:hover:bg-notion-darkHover/40 ${day === null ? 'bg-bone/40 dark:bg-darkbg/20' : ''}`}
+            className={`min-h-[60px] sm:min-h-[90px] bg-white dark:bg-[#1C1C1E] p-1 sm:p-2 group transition-colors duration-300 hover:bg-notion-hover/40 dark:hover:bg-notion-darkHover/40 ${day === null ? 'bg-bone/40 dark:bg-darkbg/20' : ''}`}
           >
             {day && (
               <div className="h-full flex flex-col">
                 <div className="flex justify-between items-start mb-2">
-                  <span className={`text-sm font-medium w-8 h-8 flex items-center justify-center rounded-full transition-colors ${isToday(day) ? 'bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg' : 'text-notion-text dark:text-notion-darkText group-hover:text-black dark:group-hover:text-white'}`}>
+                  <span className={`text-xs sm:text-sm font-medium w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full transition-colors ${isToday(day) ? 'bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg' : 'text-notion-text dark:text-notion-darkText group-hover:text-black dark:group-hover:text-white'}`}>
                     {day}
                   </span>
                   <motion.button 
@@ -129,7 +129,7 @@ const Calendar: React.FC<CalendarProps> = ({ events, onAddEvent, onEventClick })
                         whileHover={{ x: 2, filter: 'brightness(0.9)' }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => onEventClick(event)}
-                        className={`${event.color} dark:brightness-75 text-[10px] px-2.5 py-2 rounded-xl font-semibold truncate border border-black/5 dark:text-black text-left transition-all`}
+                        className={`${event.color} dark:brightness-75 text-[9px] sm:text-[10px] px-1.5 py-1 sm:px-2.5 sm:py-2 rounded-lg sm:rounded-xl font-semibold truncate border border-black/5 dark:text-black text-left transition-all`}
                       >
                         {event.title}
                       </motion.button>
