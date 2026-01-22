@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Resource } from '../types';
 import { ExternalLink, Plus, Trash2, Link as LinkIcon } from 'lucide-react';
@@ -13,8 +12,8 @@ interface ResourceListProps {
 const ResourceList: React.FC<ResourceListProps> = ({ resources, onDelete, onAddResource }) => {
   return (
     <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-1000">
-      <div className="flex items-center justify-between mb-6 px-2">
-        <h2 className="text-2xl font-serif text-notion-text dark:text-notion-darkText italic transition-colors">Bookmarks</h2>
+      <div className="flex items-center justify-between mb-3 px-2">
+        <h2 className="text-xl font-serif text-notion-text dark:text-notion-darkText italic transition-colors">Bookmarks</h2>
         <motion.button 
           whileHover={{ scale: 1.1, rotate: 90 }}
           whileTap={{ scale: 0.9 }}
@@ -25,14 +24,14 @@ const ResourceList: React.FC<ResourceListProps> = ({ resources, onDelete, onAddR
         </motion.button>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-2">
         <AnimatePresence mode="popLayout">
           {resources.length === 0 ? (
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="text-center py-8 px-4 border border-notion-border dark:border-notion-darkBorder rounded-[2rem] bg-white/30 dark:bg-notion-darkHover/30 transition-colors"
+              className="text-center py-6 px-4 border border-notion-border dark:border-notion-darkBorder rounded-[1.5rem] bg-white/30 dark:bg-notion-darkHover/30 transition-colors"
             >
               <p className="text-notion-muted dark:text-notion-darkMuted font-light italic text-xs">No resources saved yet.</p>
             </motion.div>
@@ -44,9 +43,9 @@ const ResourceList: React.FC<ResourceListProps> = ({ resources, onDelete, onAddR
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-                className="group flex items-center gap-4 p-4 rounded-2xl border border-notion-border dark:border-notion-darkBorder bg-white dark:bg-[#1C1C1E] hover:bg-notion-hover/20 dark:hover:bg-notion-darkHover/20 transition-all duration-300"
+                className="group flex items-center gap-3 p-3 rounded-xl border border-notion-border dark:border-notion-darkBorder bg-white dark:bg-[#1C1C1E] hover:bg-notion-hover/20 dark:hover:bg-notion-darkHover/20 transition-all duration-300"
               >
-                <div className="flex-shrink-0 p-2.5 bg-pastel-blue/30 dark:bg-blue-900/30 rounded-xl">
+                <div className="flex-shrink-0 p-2 bg-pastel-blue/30 dark:bg-blue-900/30 rounded-lg">
                   <LinkIcon className="w-4 h-4 text-blue-600/70 dark:text-blue-400/70" />
                 </div>
                 

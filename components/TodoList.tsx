@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Task, TaskCategory } from '../types';
 import { CheckCircle2, Circle, Plus, Trash2 } from 'lucide-react';
@@ -30,8 +29,8 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onToggle, onDelete, onAddTas
 
   return (
     <div className="flex flex-col">
-      <div className="flex items-center justify-between mb-8 px-2">
-        <h2 className="text-3xl font-serif text-notion-text dark:text-notion-darkText italic transition-colors">Tasks</h2>
+      <div className="flex items-center justify-between mb-4 px-2">
+        <h2 className="text-2xl font-serif text-notion-text dark:text-notion-darkText italic transition-colors">Tasks</h2>
         <motion.button 
           whileHover={{ scale: 1.1, rotate: 90 }}
           whileTap={{ scale: 0.9 }}
@@ -62,7 +61,7 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onToggle, onDelete, onAddTas
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20, height: 0, marginBottom: 0, padding: 0 }}
                 transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                className={`group flex items-start gap-5 p-5 rounded-[1.8rem] border transition-all duration-500 overflow-hidden ${task.completed ? 'bg-notion-hover/30 dark:bg-notion-darkHover/30 border-transparent opacity-60' : 'bg-white dark:bg-[#1C1C1E] border-notion-border dark:border-notion-darkBorder hover:border-notion-text/20 dark:hover:border-notion-darkText/20'}`}
+                className={`group flex items-start gap-4 p-4 rounded-[1.5rem] border transition-all duration-500 overflow-hidden ${task.completed ? 'bg-notion-hover/30 dark:bg-notion-darkHover/30 border-transparent opacity-60' : 'bg-white dark:bg-[#1C1C1E] border-notion-border dark:border-notion-darkBorder hover:border-notion-text/20 dark:hover:border-notion-darkText/20'}`}
               >
                 <motion.button 
                   whileTap={{ scale: 0.8 }}
@@ -70,9 +69,9 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onToggle, onDelete, onAddTas
                   className="mt-1 flex-shrink-0"
                 >
                   {task.completed ? (
-                    <CheckCircle2 className="w-6 h-6 text-green-500/80" />
+                    <CheckCircle2 className="w-5 h-5 text-green-500/80" />
                   ) : (
-                    <Circle className="w-6 h-6 text-notion-border dark:text-notion-darkBorder group-hover:text-notion-muted dark:group-hover:text-notion-darkMuted" />
+                    <Circle className="w-5 h-5 text-notion-border dark:text-notion-darkBorder group-hover:text-notion-muted dark:group-hover:text-notion-darkMuted" />
                   )}
                 </motion.button>
                 

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CalendarEvent, PASTEL_COLORS } from '../types';
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
@@ -56,15 +55,15 @@ const Calendar: React.FC<CalendarProps> = ({ events, onAddEvent, onEventClick })
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="bg-white dark:bg-[#1C1C1E] rounded-[2.5rem] p-8 border border-notion-border dark:border-notion-darkBorder transition-colors duration-500 shadow-sm"
+      className="bg-white dark:bg-[#1C1C1E] rounded-[2rem] p-6 border border-notion-border dark:border-notion-darkBorder transition-colors duration-500 shadow-sm"
     >
-      <div className="flex items-center justify-between mb-8 px-2">
+      <div className="flex items-center justify-between mb-4 px-2">
         <div className="flex items-center gap-6">
           <motion.h2 
             key={monthName}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-4xl font-serif text-notion-text dark:text-notion-darkText"
+            className="text-2xl font-serif text-notion-text dark:text-notion-darkText"
           >
             {monthName} <span className="text-notion-muted dark:text-notion-darkMuted font-light">{year}</span>
           </motion.h2>
@@ -89,7 +88,7 @@ const Calendar: React.FC<CalendarProps> = ({ events, onAddEvent, onEventClick })
         </motion.button>
       </div>
 
-      <div className="grid grid-cols-7 mb-6">
+      <div className="grid grid-cols-7 mb-3">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
           <div key={d} className="text-center text-[10px] font-bold text-notion-muted dark:text-notion-darkMuted uppercase tracking-[0.3em] py-2 opacity-50">
             {d}
@@ -101,7 +100,7 @@ const Calendar: React.FC<CalendarProps> = ({ events, onAddEvent, onEventClick })
         {calendarGrid.map((day, idx) => (
           <div 
             key={idx} 
-            className={`min-h-[120px] bg-white dark:bg-[#1C1C1E] p-3 group transition-colors duration-300 hover:bg-notion-hover/40 dark:hover:bg-notion-darkHover/40 ${day === null ? 'bg-bone/40 dark:bg-darkbg/20' : ''}`}
+            className={`min-h-[90px] bg-white dark:bg-[#1C1C1E] p-2 group transition-colors duration-300 hover:bg-notion-hover/40 dark:hover:bg-notion-darkHover/40 ${day === null ? 'bg-bone/40 dark:bg-darkbg/20' : ''}`}
           >
             {day && (
               <div className="h-full flex flex-col">

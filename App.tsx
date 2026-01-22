@@ -10,8 +10,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { createClient } from '@supabase/supabase-js';
 
 // Configuration: Ensure these variables are provided in the environment
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -21,6 +21,11 @@ const App: React.FC = () => {
     const saved = localStorage.getItem('ethereal_dark_mode');
     return saved ? JSON.parse(saved) : false;
   });
+
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    alert('Missing Supabase configuration');
+    return;
+  }
   
   const [userName, setUserName] = useState('');
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -198,7 +203,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-bone dark:bg-darkbg selection:bg-notion-hover dark:selection:bg-notion-darkHover selection:text-notion-text dark:selection:text-notion-darkText overflow-x-hidden transition-colors duration-500">
-      <header className="max-w-7xl mx-auto pt-20 pb-16 px-10 flex justify-between items-end">
+      <header className="max-w-7xl mx-auto pt-10 pb-8 px-10 flex justify-between items-end">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -209,7 +214,7 @@ const App: React.FC = () => {
             <span>Digital Atrium</span>
           </div>
           <div className="group flex items-center gap-4 cursor-pointer" onClick={() => { setTempName(userName); setIsNameModalOpen(true); }}>
-            <h1 className="text-7xl font-serif text-notion-text dark:text-notion-darkText italic leading-none transition-colors">
+            <h1 className="text-5xl font-serif text-notion-text dark:text-notion-darkText italic leading-none transition-colors">
               {userName ? `${userName}'s Page` : 'The Art of Focus'}
             </h1>
             <Edit3 className="w-6 h-6 text-notion-muted opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -227,9 +232,9 @@ const App: React.FC = () => {
         </motion.div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-10 pb-32 grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <main className="max-w-7xl mx-auto px-10 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column (8 units) */}
-        <div className="lg:col-span-8 space-y-16">
+        <div className="lg:col-span-8 space-y-8">
           <Calendar 
             events={events} 
             onAddEvent={openAddEvent} 
@@ -239,22 +244,22 @@ const App: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-notion-hover/20 dark:bg-notion-darkHover/40 rounded-[3rem] p-12 border border-notion-border dark:border-notion-darkBorder flex flex-col md:flex-row items-center justify-between gap-10 transition-colors"
+            className="bg-notion-hover/20 dark:bg-notion-darkHover/40 rounded-[2.5rem] p-8 border border-notion-border dark:border-notion-darkBorder flex flex-col md:flex-row items-center justify-between gap-8 transition-colors"
           >
             <div className="max-w-md">
-              <h3 className="text-3xl font-serif text-notion-text dark:text-notion-darkText mb-3 italic">Mindful Reflection</h3>
+              <h3 className="text-2xl font-serif text-notion-text dark:text-notion-darkText mb-2 italic">Mindful Reflection</h3>
               <p className="text-sm text-notion-muted dark:text-notion-darkMuted leading-relaxed font-light">
                 Success is a series of small wins. Acknowledge your progress and plan your path with intention.
               </p>
             </div>
             <div className="flex gap-10">
                <div className="text-center">
-                  <div className="text-4xl font-serif text-notion-text dark:text-notion-darkText mb-1">{tasks.filter(t => !t.completed).length}</div>
+                  <div className="text-3xl font-serif text-notion-text dark:text-notion-darkText mb-1">{tasks.filter(t => !t.completed).length}</div>
                   <div className="text-[9px] text-notion-muted dark:text-notion-darkMuted uppercase font-bold tracking-widest opacity-60">Pending</div>
                </div>
                <div className="w-px h-10 bg-notion-border dark:bg-notion-darkBorder self-center" />
                <div className="text-center">
-                  <div className="text-4xl font-serif text-notion-text dark:text-notion-darkText mb-1">{events.length}</div>
+                  <div className="text-3xl font-serif text-notion-text dark:text-notion-darkText mb-1">{events.length}</div>
                   <div className="text-[9px] text-notion-muted dark:text-notion-darkMuted uppercase font-bold tracking-widest opacity-60">Calendar</div>
                </div>
             </div>
@@ -262,7 +267,7 @@ const App: React.FC = () => {
         </div>
 
         {/* Right Column (4 units) */}
-        <div className="lg:col-span-4 flex flex-col gap-12 sticky top-12">
+        <div className="lg:col-span-4 flex flex-col gap-6 sticky top-6">
           <div className="h-auto">
             <TodoList 
               tasks={tasks} 
