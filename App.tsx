@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import Calendar from './components/Calendar';
 import TodoList from './components/TodoList';
 import ResourceList from './components/ResourceList';
+import Roadmap from './components/Roadmap';
 import Modal from './components/Modal';
-import { Task, CalendarEvent, TaskCategory, Resource, PASTEL_COLORS } from './types';
+import { Task, CalendarEvent, TaskCategory, Resource, PASTEL_COLORS, RoadmapItem } from './types';
 import { Sparkles, Trash2, Calendar as CalendarIcon, MapPin, Globe, Moon, Sun, Edit3, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createClient } from '@supabase/supabase-js';
@@ -31,6 +32,8 @@ const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [resources, setResources] = useState<Resource[]>([]);
+  const [roadmaps, setRoadmaps] = useState<RoadmapItem[]>([]);
+  const [activeRoadmapId, setActiveRoadmapId] = useState<string>('');
   
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
@@ -54,13 +57,27 @@ const App: React.FC = () => {
           { data: tasksData },
           { data: eventsData },
           { data: resourcesData },
-          { data: profileData }
+          { data: profileData },
+          { data: roadmapsData }
         ] = await Promise.all([
           supabase.from('tasks').select('*').order('created_at', { ascending: false }),
           supabase.from('events').select('*'),
           supabase.from('resources').select('*').order('created_at', { ascending: false }),
-          supabase.from('profile').select('name').eq('id', 'primary').single()
+          supabase.from('profile').select('name').eq('id', 'primary').single(),
+          supabase.from('roadmap').select('*')
         ]);
+
+        if (tasksData) setTasks(tasksData.map(t => ({...t, createdAt: t.created_at})));
+        if (eventsData) setEvents(eventsData);
+        if (resourcesData) setResources(resourcesData.map(r => ({...r, createdAt: r.created_at})));
+        if (profileData) setUserName(profileData.name || '');
+        if (roadmapsData) {
+           setRoadmaps(roadmapsData.map(r => ({
+             id: r.uid,
+             title: r.subject_name,
+             data: r.roadmap_data
+           })));
+        }
 
         if (tasksData) setTasks(tasksData.map(t => ({...t, createdAt: t.created_at})));
         if (eventsData) setEvents(eventsData);
@@ -188,6 +205,66 @@ const App: React.FC = () => {
     await supabase.from('resources').delete().eq('id', id);
   };
 
+  // Roadmap CRUD
+  const addRoadmap = async (title: string, data: any) => {
+     // Optimistic
+     const tempId = crypto.randomUUID();
+     const newRoadmap: RoadmapItem = { id: tempId, title, data };
+     setRoadmaps([...roadmaps, newRoadmap]);
+     // Switch to new roadmap immediately
+     setActiveRoadmapId(tempId);
+
+     const { data: inserted, error } = await supabase.from('roadmap').insert([{
+        subject_name: title,
+        roadmap_data: data
+     }]).select().single();
+
+     if (inserted) {
+         setRoadmaps(prev => prev.map(r => r.id === tempId ? { ...r, id: inserted.uid } : r));
+         // Update active ID if we were on the temp one
+         if (activeRoadmapId === tempId) {
+             setActiveRoadmapId(inserted.uid);
+         }
+     } else if (error) {
+         console.error('Error adding roadmap:', error);
+         // Revert
+         setRoadmaps(prev => prev.filter(r => r.id !== tempId));
+     }
+  };
+
+  const [isRoadmapUpdating, setIsRoadmapUpdating] = useState(false);
+
+  const updateRoadmap = async (id: string, data: any) => {
+      console.log('Updating roadmap:', id);
+      setIsRoadmapUpdating(true);
+      // Optimistic
+      setRoadmaps(prev => prev.map(r => r.id === id ? { ...r, data } : r));
+
+      const { error } = await supabase.from('roadmap').update({
+          roadmap_data: data
+      }).eq('uid', id);
+
+      if (error) {
+          console.error("Error updating roadmap:", error);
+          alert("Failed to save progress. Please check your connection.");
+          // Optionally revert state here if critical
+      }
+      setIsRoadmapUpdating(false);
+  };
+
+  const deleteRoadmap = async (id: string) => {
+      // Optimistic
+      setRoadmaps(prev => prev.filter(r => r.id !== id));
+      // Reset active ID if deleted matches active
+      if (activeRoadmapId === id) {
+          const remaining = roadmaps.filter(r => r.id !== id);
+          setActiveRoadmapId(remaining.length > 0 ? remaining[0].id : '');
+      }
+
+      const { error } = await supabase.from('roadmap').delete().eq('uid', id);
+      if (error) console.error("Error deleting roadmap:", error);
+  };
+
   const openAddEvent = (date?: string) => {
     if (date) setNewEvent({ ...newEvent, date });
     setIsEventModalOpen(true);
@@ -240,30 +317,6 @@ const App: React.FC = () => {
             onAddEvent={openAddEvent} 
             onEventClick={(e) => setSelectedEvent(e)}
           />
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-notion-hover/20 dark:bg-notion-darkHover/40 rounded-[2.5rem] p-8 border border-notion-border dark:border-notion-darkBorder flex flex-col md:flex-row items-center justify-between gap-8 transition-colors"
-          >
-            <div className="max-w-md">
-              <h3 className="text-2xl font-serif text-notion-text dark:text-notion-darkText mb-2 italic">Mindful Reflection</h3>
-              <p className="text-sm text-notion-muted dark:text-notion-darkMuted leading-relaxed font-light">
-                Success is a series of small wins. Acknowledge your progress and plan your path with intention.
-              </p>
-            </div>
-            <div className="flex gap-10">
-               <div className="text-center">
-                  <div className="text-3xl font-serif text-notion-text dark:text-notion-darkText mb-1">{tasks.filter(t => !t.completed).length}</div>
-                  <div className="text-[9px] text-notion-muted dark:text-notion-darkMuted uppercase font-bold tracking-widest opacity-60">Pending</div>
-               </div>
-               <div className="w-px h-10 bg-notion-border dark:bg-notion-darkBorder self-center" />
-               <div className="text-center">
-                  <div className="text-3xl font-serif text-notion-text dark:text-notion-darkText mb-1">{events.length}</div>
-                  <div className="text-[9px] text-notion-muted dark:text-notion-darkMuted uppercase font-bold tracking-widest opacity-60">Calendar</div>
-               </div>
-            </div>
-          </motion.div>
         </div>
 
         {/* Right Column (4 units) */}
@@ -283,6 +336,19 @@ const App: React.FC = () => {
               onAddResource={() => setIsResourceModalOpen(true)}
             />
           </div>
+        </div>
+
+        {/* Full Width Roadmap Section */}
+        <div className="lg:col-span-12">
+            <Roadmap 
+              roadmaps={roadmaps}
+              activeId={activeRoadmapId}
+              onSelect={setActiveRoadmapId} 
+              onAdd={addRoadmap}
+              onEdit={updateRoadmap}
+              onDelete={deleteRoadmap}
+              isUpdating={isRoadmapUpdating}
+            />
         </div>
       </main>
 

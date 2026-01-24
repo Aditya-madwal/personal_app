@@ -39,3 +39,21 @@ export const PASTEL_COLORS = [
   { name: 'Purple', bg: 'bg-pastel-purple', text: 'text-purple-700' },
   { name: 'Pink', bg: 'bg-pastel-pink', text: 'text-pink-700' },
 ];
+
+export interface SubTopic {
+  subtopic_name: string;
+  resource_url: string;
+  completed?: boolean;
+}
+
+export interface RoadmapTopic {
+  [key: string]: SubTopic[];
+}
+
+export type RoadmapData = RoadmapTopic[];
+
+export interface RoadmapItem {
+  id: string;
+  title: string;
+  data: RoadmapData;
+}
