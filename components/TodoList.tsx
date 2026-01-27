@@ -18,26 +18,26 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onToggle, onDelete, onAddTas
 
   const getCategoryColor = (category: TaskCategory) => {
     switch (category) {
-      case TaskCategory.WORK: return 'bg-pastel-blue/20 text-blue-700 dark:bg-blue-900/40 dark:text-blue-200';
-      case TaskCategory.URGENT: return 'bg-pastel-red/20 text-red-700 dark:bg-red-900/40 dark:text-red-200';
-      case TaskCategory.HEALTH: return 'bg-pastel-green/20 text-green-700 dark:bg-green-900/40 dark:text-green-200';
-      case TaskCategory.PERSONAL: return 'bg-pastel-orange/20 text-orange-700 dark:bg-orange-900/40 dark:text-orange-200';
-      case TaskCategory.LEARNING: return 'bg-pastel-purple/20 text-purple-700 dark:bg-purple-900/40 dark:text-purple-200';
-      default: return 'bg-notion-hover text-notion-muted dark:bg-notion-darkHover dark:text-notion-darkMuted';
+      case TaskCategory.WORK: return 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-200 border border-blue-200 dark:border-blue-700/30';
+      case TaskCategory.URGENT: return 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-200 border border-red-200 dark:border-red-700/30';
+      case TaskCategory.HEALTH: return 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-200 border border-green-200 dark:border-green-700/30';
+      case TaskCategory.PERSONAL: return 'bg-orange-100 text-orange-800 dark:bg-orange-900/40 dark:text-orange-200 border border-orange-200 dark:border-orange-700/30';
+      case TaskCategory.LEARNING: return 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-200 border border-purple-200 dark:border-purple-700/30';
+      default: return 'bg-gray-100 text-gray-600 dark:bg-notion-darkHover dark:text-notion-darkMuted border border-gray-200 dark:border-white/10';
     }
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#0A0A0A] rounded-2xl border border-white/5 overflow-hidden shadow-2xl shadow-black/50">
-      <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
-        <h2 className="text-xl font-medium text-gray-200 flex items-center gap-3">
-           Tasks <span className="bg-[#121212] text-gray-500 border border-white/5 px-2.5 py-0.5 rounded-full text-xs font-medium">{tasks.length}</span>
+    <div className="flex flex-col h-full bg-white dark:bg-[#0A0A0A] rounded-2xl border border-gray-200 dark:border-white/5 overflow-hidden shadow-2xl shadow-black/5 dark:shadow-black/50">
+      <div className="flex items-center justify-between px-6 py-5 border-b border-gray-200 dark:border-white/5">
+        <h2 className="text-xl font-medium text-gray-900 dark:text-gray-200 flex items-center gap-3">
+           Tasks <span className="bg-gray-100 dark:bg-[#121212] text-gray-500 border border-gray-200 dark:border-white/5 px-2.5 py-0.5 rounded-full text-xs font-medium">{tasks.length}</span>
         </h2>
         <motion.button 
           whileHover={{ backgroundColor: 'rgba(255,255,255,0.05)' }}
           whileTap={{ scale: 0.95 }}
           onClick={onAddTask}
-          className="p-2 rounded-lg text-gray-500 hover:text-emerald-400 transition-colors"
+          className="p-2 rounded-lg text-gray-400 hover:text-emerald-600 dark:text-gray-500 dark:hover:text-emerald-400 transition-colors hover:bg-gray-100 dark:hover:bg-white/5"
         >
           <Plus className="w-5 h-5" />
         </motion.button>
@@ -46,7 +46,7 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onToggle, onDelete, onAddTas
       <div className="flex-1 overflow-x-auto custom-scrollbar">
           <table className="w-full text-left border-collapse min-w-[600px]">
             <thead>
-              <tr className="border-b border-white/5 bg-white/[0.01]">
+              <tr className="border-b border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-white/[0.01]">
                 <th className="p-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider w-[120px]">Category</th>
                 <th className="p-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider min-w-[200px]">Description</th>
                 <th className="p-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider min-w-[150px]">Title</th>
@@ -54,7 +54,7 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onToggle, onDelete, onAddTas
                 <th className="p-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider text-center w-[80px]">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5">
+            <tbody className="divide-y divide-gray-200 dark:divide-white/5">
               <AnimatePresence mode="popLayout" initial={false}>
                 {sortedTasks.length === 0 ? (
                   <motion.tr 
@@ -74,10 +74,10 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onToggle, onDelete, onAddTas
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="group hover:bg-white/[0.02] transition-colors"
+                      className="group hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors"
                     >
                       <td className="p-4 align-top">
-                        <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-medium bg-emerald-900/30 text-emerald-400 border border-emerald-500/20 shadow-sm">
+                        <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-medium shadow-sm ${getCategoryColor(task.category)}`}>
                           {task.category}
                         </span>
                       </td>
@@ -87,7 +87,7 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onToggle, onDelete, onAddTas
                         </p>
                       </td>
                       <td className="p-4 align-top">
-                        <p className={`text-sm font-medium ${task.completed ? 'text-gray-500 line-through decoration-gray-700' : 'text-gray-200'}`}>
+                        <p className={`text-sm font-medium ${task.completed ? 'text-gray-500 line-through decoration-gray-700' : 'text-gray-900 dark:text-gray-200'}`}>
                           {task.title}
                         </p>
                       </td>
@@ -106,7 +106,7 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onToggle, onDelete, onAddTas
                       <td className="p-4 align-top text-center">
                         <button 
                           onClick={() => onDelete(task.id)}
-                          className="p-1 text-gray-600 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
+                          className="p-1 text-gray-400 hover:text-red-500 dark:text-gray-600 dark:hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>

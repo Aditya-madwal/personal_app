@@ -279,7 +279,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#A1A1AA] selection:bg-emerald-500/30 selection:text-emerald-200 overflow-x-hidden transition-colors duration-500 font-sans">
+    <div className="min-h-screen bg-[#F7F7F5] dark:bg-[#050505] text-gray-600 dark:text-[#A1A1AA] selection:bg-emerald-500/30 selection:text-emerald-700 dark:selection:text-emerald-200 overflow-x-hidden transition-colors duration-500 font-sans">
       <header className="max-w-[95vw] mx-auto pt-8 pb-8 px-4 sm:px-6 flex justify-between items-center">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -291,7 +291,7 @@ const App: React.FC = () => {
             <span>Digital Atrium</span>
           </div>
           <div className="group flex items-center gap-4 cursor-pointer" onClick={() => { setTempName(userName); setIsNameModalOpen(true); }}>
-            <h1 className="text-5xl font-serif text-notion-text dark:text-notion-darkText italic leading-none transition-colors">
+            <h1 className="text-5xl font-serif text-gray-900 dark:text-white italic leading-none transition-colors">
               {userName ? `${userName}'s Page` : 'The Art of Focus'}
             </h1>
             <Edit3 className="w-6 h-6 text-notion-muted opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -360,7 +360,7 @@ const App: React.FC = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsDarkMode(!isDarkMode)}
-        className="fixed bottom-8 right-8 w-12 h-12 bg-[#121212] text-gray-400 border border-white/5 rounded-full flex items-center justify-center shadow-2xl z-[100] transition-colors duration-500 hover:text-white"
+        className="fixed bottom-8 right-8 w-12 h-12 bg-white dark:bg-[#121212] text-gray-600 dark:text-gray-400 border border-gray-200 dark:border-white/5 rounded-full flex items-center justify-center shadow-2xl z-[100] transition-colors duration-500 hover:text-emerald-500 dark:hover:text-white"
       >
         {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
       </motion.button>
@@ -372,7 +372,7 @@ const App: React.FC = () => {
             <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Enter your name</label>
             <input 
               autoFocus
-              className="w-full text-xl font-medium border-b border-white/10 py-3 focus:outline-none focus:border-emerald-500/50 placeholder-gray-700 bg-transparent text-gray-200 transition-all font-sans"
+              className="w-full text-xl font-medium border-b border-gray-200 dark:border-white/10 py-3 focus:outline-none focus:border-emerald-500/50 placeholder-gray-400 dark:placeholder-gray-700 bg-transparent text-gray-900 dark:text-gray-200 transition-all font-sans"
               placeholder="Your name..."
               value={tempName}
               onChange={e => setTempName(e.target.value)}
@@ -383,7 +383,7 @@ const App: React.FC = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={saveName}
-            className="w-full py-4 bg-emerald-900/20 text-emerald-400 border border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest transition-all hover:bg-emerald-900/30"
+            className="w-full py-4 bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest transition-all hover:bg-emerald-200 dark:hover:bg-emerald-900/30"
           >
             Update Title
           </motion.button>
@@ -397,7 +397,7 @@ const App: React.FC = () => {
             <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">What needs to be done?</label>
             <input 
               autoFocus
-              className="w-full text-xl font-medium border-b border-white/10 py-3 focus:outline-none focus:border-emerald-500/50 placeholder-gray-700 bg-transparent text-gray-200 transition-all font-sans"
+              className="w-full text-xl font-medium border-b border-gray-200 dark:border-white/10 py-3 focus:outline-none focus:border-emerald-500/50 placeholder-gray-400 dark:placeholder-gray-700 bg-transparent text-gray-900 dark:text-gray-200 transition-all font-sans"
               placeholder="Deep work session..."
               value={newTask.title}
               onChange={e => setNewTask({...newTask, title: e.target.value})}
@@ -405,7 +405,7 @@ const App: React.FC = () => {
           </div>
           <div>
             <textarea 
-              className="w-full text-gray-300 border border-white/5 rounded-xl p-6 focus:outline-none focus:border-emerald-500/20 placeholder-gray-700 bg-[#0A0A0A] transition-all text-[0.9rem] resize-none"
+              className="w-full text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/5 rounded-xl p-6 focus:outline-none focus:border-emerald-500/20 placeholder-gray-400 dark:placeholder-gray-700 bg-gray-50 dark:bg-[#0A0A0A] transition-all text-[0.9rem] resize-none"
               rows={3}
               placeholder="Context or notes..."
               value={newTask.description}
@@ -421,7 +421,7 @@ const App: React.FC = () => {
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setNewTask({...newTask, category: cat})}
-                  className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all border ${newTask.category === cat ? 'bg-emerald-900/20 text-emerald-400 border-emerald-500/20' : 'bg-[#0A0A0A] text-gray-500 border-white/5 hover:border-white/10'}`}
+                  className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all border ${newTask.category === cat ? 'bg-emerald-100 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' : 'bg-gray-50 dark:bg-[#0A0A0A] text-gray-500 border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/10'}`}
                 >
                   {cat}
                 </motion.button>
@@ -433,7 +433,7 @@ const App: React.FC = () => {
             whileTap={{ scale: 0.98 }}
             onClick={addTask}
             disabled={!newTask.title}
-            className="w-full py-4 bg-emerald-900/20 text-emerald-400 border border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest transition-all hover:bg-emerald-900/30 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="w-full py-4 bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest transition-all hover:bg-emerald-200 dark:hover:bg-emerald-900/30 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Create Task
           </motion.button>
@@ -447,7 +447,7 @@ const App: React.FC = () => {
             <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Event Name</label>
             <input 
               autoFocus
-              className="w-full text-xl font-medium border-b border-white/10 py-3 focus:outline-none focus:border-emerald-500/50 placeholder-gray-700 bg-transparent text-gray-200 transition-all font-sans"
+              className="w-full text-xl font-medium border-b border-gray-200 dark:border-white/10 py-3 focus:outline-none focus:border-emerald-500/50 placeholder-gray-400 dark:placeholder-gray-700 bg-transparent text-gray-900 dark:text-gray-200 transition-all font-sans"
               placeholder="Paris Trip, Meeting, etc..."
               value={newEvent.title}
               onChange={e => setNewEvent({...newEvent, title: e.target.value})}
@@ -458,7 +458,7 @@ const App: React.FC = () => {
               <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">When</label>
               <input 
                 type="date"
-                className="w-full p-4 border border-white/5 rounded-xl focus:outline-none focus:border-emerald-500/20 bg-[#0A0A0A] text-gray-300 text-sm font-medium"
+                className="w-full p-4 border border-gray-200 dark:border-white/5 rounded-xl focus:outline-none focus:border-emerald-500/20 bg-gray-50 dark:bg-[#0A0A0A] text-gray-900 dark:text-gray-300 text-sm font-medium"
                 value={newEvent.date}
                 onChange={e => setNewEvent({...newEvent, date: e.target.value})}
               />
@@ -483,7 +483,7 @@ const App: React.FC = () => {
             whileTap={{ scale: 0.98 }}
             onClick={addEvent}
             disabled={!newEvent.title || !newEvent.date}
-            className="w-full py-4 bg-emerald-900/20 text-emerald-400 border border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest transition-all hover:bg-emerald-900/30 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="w-full py-4 bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest transition-all hover:bg-emerald-200 dark:hover:bg-emerald-900/30 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Add to Calendar
           </motion.button>
@@ -497,7 +497,7 @@ const App: React.FC = () => {
             <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Title</label>
             <input 
               autoFocus
-              className="w-full text-xl font-medium border-b border-white/10 py-3 focus:outline-none focus:border-emerald-500/50 placeholder-gray-700 bg-transparent text-gray-200 transition-all font-sans"
+              className="w-full text-xl font-medium border-b border-gray-200 dark:border-white/10 py-3 focus:outline-none focus:border-emerald-500/50 placeholder-gray-400 dark:placeholder-gray-700 bg-transparent text-gray-900 dark:text-gray-200 transition-all font-sans"
               placeholder="Framer Motion Docs, Apple Design, etc..."
               value={newResource.title}
               onChange={e => setNewResource({...newResource, title: e.target.value})}
@@ -508,7 +508,7 @@ const App: React.FC = () => {
             <div className="relative">
               <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
               <input 
-                className="w-full pl-12 pr-4 py-4 border border-white/5 rounded-xl focus:outline-none focus:border-emerald-500/20 bg-[#0A0A0A] text-gray-300 text-sm font-medium placeholder-gray-700"
+                className="w-full pl-12 pr-4 py-4 border border-gray-200 dark:border-white/5 rounded-xl focus:outline-none focus:border-emerald-500/20 bg-gray-50 dark:bg-[#0A0A0A] text-gray-900 dark:text-gray-300 text-sm font-medium placeholder-gray-400 dark:placeholder-gray-700"
                 placeholder="google.com"
                 value={newResource.url}
                 onChange={e => setNewResource({...newResource, url: e.target.value})}
@@ -520,7 +520,7 @@ const App: React.FC = () => {
             whileTap={{ scale: 0.98 }}
             onClick={addResource}
             disabled={!newResource.title || !newResource.url}
-            className="w-full py-4 bg-emerald-900/20 text-emerald-400 border border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest transition-all hover:bg-emerald-900/30 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="w-full py-4 bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest transition-all hover:bg-emerald-200 dark:hover:bg-emerald-900/30 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Save Bookmark
           </motion.button>
@@ -536,42 +536,42 @@ const App: React.FC = () => {
         {selectedEvent && (
           <div className="space-y-10">
             <div>
-              <div className={`inline-block px-4 py-1.5 rounded-full ${selectedEvent.color} bg-opacity-20 border border-white/5 text-[10px] font-bold uppercase tracking-widest mb-6 text-gray-300`}>
+              <div className={`inline-block px-4 py-1.5 rounded-full ${selectedEvent.color} bg-opacity-20 border border-gray-200 dark:border-white/5 text-[10px] font-bold uppercase tracking-widest mb-6 text-gray-600 dark:text-gray-300`}>
                 Scheduled
               </div>
-              <h3 className="text-3xl font-medium text-gray-100 leading-tight">{selectedEvent.title}</h3>
+              <h3 className="text-3xl font-medium text-gray-900 dark:text-gray-100 leading-tight">{selectedEvent.title}</h3>
             </div>
             
             <div className="space-y-6">
               <div className="flex items-center gap-6">
-                <div className="p-4 bg-[#0A0A0A] border border-white/5 rounded-xl">
+                <div className="p-4 bg-gray-50 dark:bg-[#0A0A0A] border border-gray-200 dark:border-white/5 rounded-xl">
                   <CalendarIcon className="w-5 h-5 text-gray-400" />
                 </div>
                 <div>
                   <div className="text-[10px] font-bold uppercase tracking-widest text-gray-600 mb-1">Date</div>
-                  <div className="text-gray-300 font-medium text-lg">{new Date(selectedEvent.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                  <div className="text-gray-700 dark:text-gray-300 font-medium text-lg">{new Date(selectedEvent.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
                 </div>
               </div>
 
               {selectedEvent.description && (
                 <div className="flex items-start gap-6">
-                  <div className="p-4 bg-[#0A0A0A] border border-white/5 rounded-xl">
+                  <div className="p-4 bg-gray-50 dark:bg-[#0A0A0A] border border-gray-200 dark:border-white/5 rounded-xl">
                     <MapPin className="w-5 h-5 text-gray-400" />
                   </div>
                   <div className="flex-1">
                     <div className="text-[10px] font-bold uppercase tracking-widest text-gray-600 mb-1">Details</div>
-                    <div className="text-gray-400 text-[0.95rem] leading-relaxed">{selectedEvent.description}</div>
+                    <div className="text-gray-600 dark:text-gray-400 text-[0.95rem] leading-relaxed">{selectedEvent.description}</div>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="pt-8 border-t border-white/5 flex justify-end">
+            <div className="pt-8 border-t border-gray-200 dark:border-white/5 flex justify-end">
               <motion.button 
                 whileHover={{ scale: 1.05, color: '#ef4444' }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => deleteEvent(selectedEvent.id)}
-                className="flex items-center gap-3 px-6 py-3 text-gray-500 hover:bg-red-900/10 hover:text-red-400 rounded-lg font-bold text-[10px] uppercase tracking-widest transition-all"
+                className="flex items-center gap-3 px-6 py-3 text-gray-500 hover:bg-red-50 dark:hover:bg-red-900/10 hover:text-red-500 dark:hover:text-red-400 rounded-lg font-bold text-[10px] uppercase tracking-widest transition-all"
               >
                 <Trash2 className="w-4 h-4" />
                 Discard
