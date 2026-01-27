@@ -36,15 +36,15 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-lg bg-white dark:bg-[#191919] rounded-lg overflow-hidden border border-notion-border dark:border-[#2f2f2f] transition-colors duration-200 shadow-xl"
+            className="relative w-full max-w-lg bg-[#121212] rounded-2xl overflow-hidden border border-white/10 transition-colors duration-200 shadow-2xl shadow-black/80"
           >
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold text-notion-text dark:text-gray-200">{title}</h2>
+                <h2 className="text-xl font-medium text-gray-200">{title}</h2>
                 <motion.button 
-                  whileHover={{ backgroundColor: 'rgba(0,0,0,0.05)' }}
+                  whileHover={{ backgroundColor: 'rgba(255,255,255,0.05)' }}
                   onClick={onClose}
-                  className="p-1 rounded-sm text-gray-400 hover:text-black dark:hover:text-white transition-colors"
+                  className="p-1 rounded-sm text-gray-500 hover:text-gray-100 transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </motion.button>

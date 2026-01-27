@@ -28,33 +28,33 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onToggle, onDelete, onAddTas
   };
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-[#191919] rounded-2xl border border-gray-200/60 dark:border-[#2f2f2f] overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
-      <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 dark:border-[#2f2f2f]">
-        <h2 className="text-lg font-semibold text-notion-text dark:text-gray-200 flex items-center gap-3">
-           Tasks <span className="bg-gray-100 dark:bg-[#2f2f2f] text-gray-500 dark:text-gray-400 px-2.5 py-0.5 rounded-full text-xs font-medium">{tasks.length}</span>
+    <div className="flex flex-col h-full bg-[#0A0A0A] rounded-2xl border border-white/5 overflow-hidden shadow-2xl shadow-black/50">
+      <div className="flex items-center justify-between px-6 py-5 border-b border-white/5">
+        <h2 className="text-xl font-medium text-gray-200 flex items-center gap-3">
+           Tasks <span className="bg-[#121212] text-gray-500 border border-white/5 px-2.5 py-0.5 rounded-full text-xs font-medium">{tasks.length}</span>
         </h2>
         <motion.button 
-          whileHover={{ backgroundColor: 'rgba(0,0,0,0.05)' }}
+          whileHover={{ backgroundColor: 'rgba(255,255,255,0.05)' }}
           whileTap={{ scale: 0.95 }}
           onClick={onAddTask}
-          className="p-2 rounded-lg text-gray-400 hover:text-notion-text dark:text-gray-500 dark:hover:text-gray-300 transition-colors"
+          className="p-2 rounded-lg text-gray-500 hover:text-emerald-400 transition-colors"
         >
           <Plus className="w-5 h-5" />
         </motion.button>
       </div>
 
-      <div className="flex-1 overflow-x-auto">
+      <div className="flex-1 overflow-x-auto custom-scrollbar">
           <table className="w-full text-left border-collapse min-w-[600px]">
             <thead>
-              <tr className="border-b border-gray-100 dark:border-[#2f2f2f] bg-gray-50/30 dark:bg-[#202020]">
-                <th className="p-4 text-[11px] font-semibold text-gray-400 uppercase tracking-wider w-[120px]">Category</th>
-                <th className="p-4 text-[11px] font-semibold text-gray-400 uppercase tracking-wider min-w-[200px]">Description</th>
-                <th className="p-4 text-[11px] font-semibold text-gray-400 uppercase tracking-wider min-w-[150px]">Title</th>
-                <th className="p-4 text-[11px] font-semibold text-gray-400 uppercase tracking-wider text-center w-[100px]">Status</th>
-                <th className="p-4 text-[11px] font-semibold text-gray-400 uppercase tracking-wider text-center w-[80px]">Action</th>
+              <tr className="border-b border-white/5 bg-white/[0.01]">
+                <th className="p-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider w-[120px]">Category</th>
+                <th className="p-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider min-w-[200px]">Description</th>
+                <th className="p-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider min-w-[150px]">Title</th>
+                <th className="p-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider text-center w-[100px]">Status</th>
+                <th className="p-4 text-[11px] font-semibold text-gray-500 uppercase tracking-wider text-center w-[80px]">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50 dark:divide-[#2f2f2f]">
+            <tbody className="divide-y divide-white/5">
               <AnimatePresence mode="popLayout" initial={false}>
                 {sortedTasks.length === 0 ? (
                   <motion.tr 
@@ -62,7 +62,7 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onToggle, onDelete, onAddTas
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                   >
-                    <td colSpan={5} className="p-8 text-center text-sm text-gray-400 italic">
+                    <td colSpan={5} className="p-8 text-center text-sm text-gray-600 italic">
                       No tasks yet. Press + to create one.
                     </td>
                   </motion.tr>
@@ -74,41 +74,41 @@ const TodoList: React.FC<TodoListProps> = ({ tasks, onToggle, onDelete, onAddTas
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="group hover:bg-gray-50 dark:hover:bg-[#202020] transition-colors"
+                      className="group hover:bg-white/[0.02] transition-colors"
                     >
-                      <td className="p-3 align-top">
-                        <span className={`inline-flex items-center px-1.5 py-0.5 rounded-sm text-[10px] font-medium ${getCategoryColor(task.category)} bg-opacity-10`}>
+                      <td className="p-4 align-top">
+                        <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-medium bg-emerald-900/30 text-emerald-400 border border-emerald-500/20 shadow-sm">
                           {task.category}
                         </span>
                       </td>
-                      <td className="p-3 align-top">
-                        <p className={`text-xs text-gray-600 dark:text-gray-400 line-clamp-2 ${task.completed ? 'line-through opacity-50' : ''}`}>
+                      <td className="p-4 align-top">
+                        <p className={`text-xs text-gray-400 line-clamp-2 ${task.completed ? 'line-through opacity-40' : ''}`}>
                           {task.description || '-'}
                         </p>
                       </td>
-                      <td className="p-3 align-top">
-                        <p className={`text-xs font-medium ${task.completed ? 'text-gray-400 line-through' : 'text-notion-text dark:text-gray-200'}`}>
+                      <td className="p-4 align-top">
+                        <p className={`text-sm font-medium ${task.completed ? 'text-gray-500 line-through decoration-gray-700' : 'text-gray-200'}`}>
                           {task.title}
                         </p>
                       </td>
-                      <td className="p-3 align-top text-center">
+                      <td className="p-4 align-top text-center">
                         <button 
                           onClick={() => onToggle(task.id)}
-                          className={`rounded-sm p-0.5 transition-colors ${task.completed ? 'text-blue-600' : 'text-gray-300 hover:text-gray-500 dark:text-gray-600 dark:hover:text-gray-400'}`}
+                          className={`rounded-md p-0.5 transition-colors ${task.completed ? 'text-emerald-500' : 'text-gray-600 hover:text-emerald-400'}`}
                         >
                           {task.completed ? (
-                            <CheckCircle2 className="w-4 h-4" />
+                            <CheckCircle2 className="w-5 h-5" />
                           ) : (
-                            <Circle className="w-4 h-4" />
+                            <Circle className="w-5 h-5" />
                           )}
                         </button>
                       </td>
-                      <td className="p-3 align-top text-center">
+                      <td className="p-4 align-top text-center">
                         <button 
                           onClick={() => onDelete(task.id)}
-                          className="p-1 text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                          className="p-1 text-gray-600 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100"
                         >
-                          <Trash2 className="w-3.5 h-3.5" />
+                          <Trash2 className="w-4 h-4" />
                         </button>
                       </td>
                     </motion.tr>

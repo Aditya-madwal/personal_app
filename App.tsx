@@ -279,8 +279,8 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-bone dark:bg-darkbg selection:bg-notion-hover dark:selection:bg-notion-darkHover selection:text-notion-text dark:selection:text-notion-darkText overflow-x-hidden transition-colors duration-500">
-      <header className="max-w-7xl mx-auto pt-10 pb-8 px-10 sm:px-10 flex justify-between items-end">
+    <div className="min-h-screen bg-[#050505] text-[#A1A1AA] selection:bg-emerald-500/30 selection:text-emerald-200 overflow-x-hidden transition-colors duration-500 font-sans">
+      <header className="max-w-[95vw] mx-auto pt-8 pb-8 px-4 sm:px-6 flex justify-between items-center">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -360,19 +360,19 @@ const App: React.FC = () => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
         onClick={() => setIsDarkMode(!isDarkMode)}
-        className="fixed bottom-8 right-8 w-14 h-14 bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg rounded-full flex items-center justify-center shadow-2xl z-[100] transition-colors duration-500"
+        className="fixed bottom-8 right-8 w-12 h-12 bg-[#121212] text-gray-400 border border-white/5 rounded-full flex items-center justify-center shadow-2xl z-[100] transition-colors duration-500 hover:text-white"
       >
-        {isDarkMode ? <Sun className="w-6 h-6" /> : <Moon className="w-6 h-6" />}
+        {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
       </motion.button>
 
       {/* Name Modal */}
       <Modal isOpen={isNameModalOpen} onClose={() => setIsNameModalOpen(false)} title="Personalize">
         <div className="space-y-8">
           <div>
-            <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-notion-muted dark:text-notion-darkMuted mb-4 opacity-50">Enter your name</label>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Enter your name</label>
             <input 
               autoFocus
-              className="w-full text-2xl font-serif border-b border-notion-border dark:border-notion-darkBorder py-3 focus:outline-none focus:border-notion-text dark:focus:border-notion-darkText placeholder-notion-border/40 bg-transparent transition-all"
+              className="w-full text-xl font-medium border-b border-white/10 py-3 focus:outline-none focus:border-emerald-500/50 placeholder-gray-700 bg-transparent text-gray-200 transition-all font-sans"
               placeholder="Your name..."
               value={tempName}
               onChange={e => setTempName(e.target.value)}
@@ -383,7 +383,7 @@ const App: React.FC = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={saveName}
-            className="w-full py-5 bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg rounded-full font-bold text-xs uppercase tracking-[0.2em] transition-all mt-4"
+            className="w-full py-4 bg-emerald-900/20 text-emerald-400 border border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest transition-all hover:bg-emerald-900/30"
           >
             Update Title
           </motion.button>
@@ -394,10 +394,10 @@ const App: React.FC = () => {
       <Modal isOpen={isTaskModalOpen} onClose={() => setIsTaskModalOpen(false)} title="New Task">
         <div className="space-y-8">
           <div>
-            <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-notion-muted dark:text-notion-darkMuted mb-4 opacity-50">What needs to be done?</label>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">What needs to be done?</label>
             <input 
               autoFocus
-              className="w-full text-2xl font-serif border-b border-notion-border dark:border-notion-darkBorder py-3 focus:outline-none focus:border-notion-text dark:focus:border-notion-darkText placeholder-notion-border/40 bg-transparent transition-all"
+              className="w-full text-xl font-medium border-b border-white/10 py-3 focus:outline-none focus:border-emerald-500/50 placeholder-gray-700 bg-transparent text-gray-200 transition-all font-sans"
               placeholder="Deep work session..."
               value={newTask.title}
               onChange={e => setNewTask({...newTask, title: e.target.value})}
@@ -405,7 +405,7 @@ const App: React.FC = () => {
           </div>
           <div>
             <textarea 
-              className="w-full text-notion-text dark:text-notion-darkText border border-notion-border dark:border-notion-darkBorder rounded-3xl p-6 focus:outline-none focus:ring-1 focus:ring-notion-text/20 dark:focus:ring-notion-darkText/20 placeholder-notion-border/40 bg-bone/30 dark:bg-notion-darkHover/30 transition-all text-[0.9rem] resize-none"
+              className="w-full text-gray-300 border border-white/5 rounded-xl p-6 focus:outline-none focus:border-emerald-500/20 placeholder-gray-700 bg-[#0A0A0A] transition-all text-[0.9rem] resize-none"
               rows={3}
               placeholder="Context or notes..."
               value={newTask.description}
@@ -413,7 +413,7 @@ const App: React.FC = () => {
             />
           </div>
           <div>
-            <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-notion-muted dark:text-notion-darkMuted mb-4 opacity-50">Category</label>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Category</label>
             <div className="flex flex-wrap gap-2.5">
               {Object.values(TaskCategory).map(cat => (
                 <motion.button
@@ -421,7 +421,7 @@ const App: React.FC = () => {
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setNewTask({...newTask, category: cat})}
-                  className={`px-5 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${newTask.category === cat ? 'bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg' : 'bg-notion-hover dark:bg-notion-darkHover text-notion-muted dark:text-notion-darkMuted hover:bg-notion-border dark:hover:bg-notion-darkBorder'}`}
+                  className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-all border ${newTask.category === cat ? 'bg-emerald-900/20 text-emerald-400 border-emerald-500/20' : 'bg-[#0A0A0A] text-gray-500 border-white/5 hover:border-white/10'}`}
                 >
                   {cat}
                 </motion.button>
@@ -433,7 +433,7 @@ const App: React.FC = () => {
             whileTap={{ scale: 0.98 }}
             onClick={addTask}
             disabled={!newTask.title}
-            className="w-full py-5 bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg rounded-full font-bold text-xs uppercase tracking-[0.2em] transition-all disabled:opacity-20 mt-4"
+            className="w-full py-4 bg-emerald-900/20 text-emerald-400 border border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest transition-all hover:bg-emerald-900/30 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Create Task
           </motion.button>
@@ -444,10 +444,10 @@ const App: React.FC = () => {
       <Modal isOpen={isEventModalOpen} onClose={() => setIsEventModalOpen(false)} title="Schedule Event">
         <div className="space-y-8">
           <div>
-            <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-notion-muted dark:text-notion-darkMuted mb-4 opacity-50">Event Name</label>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Event Name</label>
             <input 
               autoFocus
-              className="w-full text-2xl font-serif border-b border-notion-border dark:border-notion-darkBorder py-3 focus:outline-none focus:border-notion-text dark:focus:border-notion-darkText placeholder-notion-border/40 bg-transparent"
+              className="w-full text-xl font-medium border-b border-white/10 py-3 focus:outline-none focus:border-emerald-500/50 placeholder-gray-700 bg-transparent text-gray-200 transition-all font-sans"
               placeholder="Paris Trip, Meeting, etc..."
               value={newEvent.title}
               onChange={e => setNewEvent({...newEvent, title: e.target.value})}
@@ -455,16 +455,16 @@ const App: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-notion-muted dark:text-notion-darkMuted mb-4 opacity-50">When</label>
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">When</label>
               <input 
                 type="date"
-                className="w-full p-4 border border-notion-border dark:border-notion-darkBorder rounded-2xl focus:outline-none focus:ring-1 focus:ring-notion-text/20 dark:focus:ring-notion-darkText/20 bg-bone/30 dark:bg-notion-darkHover/30 text-notion-text dark:text-notion-darkText text-sm font-medium"
+                className="w-full p-4 border border-white/5 rounded-xl focus:outline-none focus:border-emerald-500/20 bg-[#0A0A0A] text-gray-300 text-sm font-medium"
                 value={newEvent.date}
                 onChange={e => setNewEvent({...newEvent, date: e.target.value})}
               />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-notion-muted dark:text-notion-darkMuted mb-4 opacity-50">Accent</label>
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Accent</label>
               <div className="flex flex-wrap gap-3 pt-2">
                 {PASTEL_COLORS.map(color => (
                   <motion.button
@@ -472,7 +472,7 @@ const App: React.FC = () => {
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.8 }}
                     onClick={() => setNewEvent({...newEvent, color: color.bg})}
-                    className={`w-8 h-8 rounded-full border-2 transition-all ${color.bg} ${newEvent.color === color.bg ? 'border-notion-text dark:border-notion-darkText scale-125 z-10' : 'border-transparent'}`}
+                    className={`w-8 h-8 rounded-full border-2 transition-all ${color.bg.replace('bg-', 'bg-opacity-50 bg-')} ${newEvent.color === color.bg ? 'border-white scale-125 z-10' : 'border-transparent opacity-50 hover:opacity-100'}`}
                   />
                 ))}
               </div>
@@ -483,7 +483,7 @@ const App: React.FC = () => {
             whileTap={{ scale: 0.98 }}
             onClick={addEvent}
             disabled={!newEvent.title || !newEvent.date}
-            className="w-full py-5 bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg rounded-full font-bold text-xs uppercase tracking-[0.2em] transition-all disabled:opacity-20 mt-4"
+            className="w-full py-4 bg-emerald-900/20 text-emerald-400 border border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest transition-all hover:bg-emerald-900/30 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Add to Calendar
           </motion.button>
@@ -494,21 +494,21 @@ const App: React.FC = () => {
       <Modal isOpen={isResourceModalOpen} onClose={() => setIsResourceModalOpen(false)} title="Add Bookmark">
         <div className="space-y-8">
           <div>
-            <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-notion-muted dark:text-notion-darkMuted mb-4 opacity-50">Title</label>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">Title</label>
             <input 
               autoFocus
-              className="w-full text-2xl font-serif border-b border-notion-border dark:border-notion-darkBorder py-3 focus:outline-none focus:border-notion-text dark:focus:border-notion-darkText placeholder-notion-border/40 bg-transparent"
+              className="w-full text-xl font-medium border-b border-white/10 py-3 focus:outline-none focus:border-emerald-500/50 placeholder-gray-700 bg-transparent text-gray-200 transition-all font-sans"
               placeholder="Framer Motion Docs, Apple Design, etc..."
               value={newResource.title}
               onChange={e => setNewResource({...newResource, title: e.target.value})}
             />
           </div>
           <div>
-            <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-notion-muted dark:text-notion-darkMuted mb-4 opacity-50">URL</label>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-4">URL</label>
             <div className="relative">
-              <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-notion-muted dark:text-notion-darkMuted opacity-40" />
+              <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-600" />
               <input 
-                className="w-full pl-12 pr-4 py-4 border border-notion-border dark:border-notion-darkBorder rounded-2xl focus:outline-none focus:ring-1 focus:ring-notion-text/20 dark:focus:ring-notion-darkText/20 bg-bone/30 dark:bg-notion-darkHover/30 text-notion-text dark:text-notion-darkText text-sm font-medium"
+                className="w-full pl-12 pr-4 py-4 border border-white/5 rounded-xl focus:outline-none focus:border-emerald-500/20 bg-[#0A0A0A] text-gray-300 text-sm font-medium placeholder-gray-700"
                 placeholder="google.com"
                 value={newResource.url}
                 onChange={e => setNewResource({...newResource, url: e.target.value})}
@@ -520,7 +520,7 @@ const App: React.FC = () => {
             whileTap={{ scale: 0.98 }}
             onClick={addResource}
             disabled={!newResource.title || !newResource.url}
-            className="w-full py-5 bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg rounded-full font-bold text-xs uppercase tracking-[0.2em] transition-all disabled:opacity-20 mt-4"
+            className="w-full py-4 bg-emerald-900/20 text-emerald-400 border border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest transition-all hover:bg-emerald-900/30 disabled:opacity-30 disabled:cursor-not-allowed"
           >
             Save Bookmark
           </motion.button>
@@ -536,42 +536,42 @@ const App: React.FC = () => {
         {selectedEvent && (
           <div className="space-y-10">
             <div>
-              <div className={`inline-block px-4 py-1.5 rounded-full ${selectedEvent.color} border border-black/5 text-[9px] font-bold uppercase tracking-[0.2em] mb-6 transition-colors`}>
+              <div className={`inline-block px-4 py-1.5 rounded-full ${selectedEvent.color} bg-opacity-20 border border-white/5 text-[10px] font-bold uppercase tracking-widest mb-6 text-gray-300`}>
                 Scheduled
               </div>
-              <h3 className="text-5xl font-serif text-notion-text dark:text-notion-darkText italic leading-tight">{selectedEvent.title}</h3>
+              <h3 className="text-3xl font-medium text-gray-100 leading-tight">{selectedEvent.title}</h3>
             </div>
             
             <div className="space-y-6">
               <div className="flex items-center gap-6">
-                <div className="p-4 bg-notion-hover/50 dark:bg-notion-darkHover/50 rounded-2xl">
-                  <CalendarIcon className="w-6 h-6 text-notion-text dark:text-notion-darkText" />
+                <div className="p-4 bg-[#0A0A0A] border border-white/5 rounded-xl">
+                  <CalendarIcon className="w-5 h-5 text-gray-400" />
                 </div>
                 <div>
-                  <div className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40 mb-1">Date</div>
-                  <div className="text-notion-text dark:text-notion-darkText font-semibold text-lg">{new Date(selectedEvent.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-gray-600 mb-1">Date</div>
+                  <div className="text-gray-300 font-medium text-lg">{new Date(selectedEvent.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</div>
                 </div>
               </div>
 
               {selectedEvent.description && (
                 <div className="flex items-start gap-6">
-                  <div className="p-4 bg-notion-hover/50 dark:bg-notion-darkHover/50 rounded-2xl">
-                    <MapPin className="w-6 h-6 text-notion-text dark:text-notion-darkText" />
+                  <div className="p-4 bg-[#0A0A0A] border border-white/5 rounded-xl">
+                    <MapPin className="w-5 h-5 text-gray-400" />
                   </div>
                   <div className="flex-1">
-                    <div className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-40 mb-1">Details</div>
-                    <div className="text-notion-text dark:text-notion-darkText text-[0.95rem] leading-relaxed italic">{selectedEvent.description}</div>
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-gray-600 mb-1">Details</div>
+                    <div className="text-gray-400 text-[0.95rem] leading-relaxed">{selectedEvent.description}</div>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="pt-10 border-t border-notion-border dark:border-notion-darkBorder flex justify-end">
+            <div className="pt-8 border-t border-white/5 flex justify-end">
               <motion.button 
                 whileHover={{ scale: 1.05, color: '#ef4444' }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => deleteEvent(selectedEvent.id)}
-                className="flex items-center gap-3 px-8 py-4 text-notion-muted/60 dark:text-notion-darkMuted bg-notion-hover/40 dark:bg-notion-darkHover/40 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] transition-all"
+                className="flex items-center gap-3 px-6 py-3 text-gray-500 hover:bg-red-900/10 hover:text-red-400 rounded-lg font-bold text-[10px] uppercase tracking-widest transition-all"
               >
                 <Trash2 className="w-4 h-4" />
                 Discard

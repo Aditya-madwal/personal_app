@@ -190,42 +190,43 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
   }
 
   return (
-    <div className="w-full bg-white dark:bg-[#191919] border border-gray-200/60 dark:border-[#2f2f2f] rounded-2xl mt-4 transition-all duration-500 overflow-hidden shadow-sm hover:shadow-md">
+
+    <div className="w-full bg-[#0A0A0A] border border-white/5 rounded-2xl mt-4 transition-all duration-500 overflow-hidden shadow-2xl shadow-black/50">
       
       {/* Header Section */}
-      <div className="px-6 py-5 border-b border-gray-100 dark:border-[#2f2f2f] bg-gray-50/30 dark:bg-[#202020]">
+      <div className="px-6 py-5 border-b border-white/5 bg-white/[0.01]">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-               <div className="p-2 bg-white dark:bg-[#2f2f2f] rounded-lg shadow-sm border border-gray-100 dark:border-transparent">
-                  <BookOpen className="w-4 h-4 text-gray-400" />
+               <div className="p-2 bg-[#121212] rounded-lg shadow-sm border border-white/5">
+                  <BookOpen className="w-4 h-4 text-emerald-500" />
                </div>
-               <h2 className="text-xl font-semibold text-notion-text dark:text-gray-200">
+               <h2 className="text-xl font-medium text-gray-200">
                   {activeRoadmap?.title || 'Select Roadmap'}
                </h2>
                {activeRoadmap && !isUpdating && (
-                  <span className="text-xs font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-[#2f2f2f] px-3 py-1 rounded-full border border-gray-100 dark:border-transparent shadow-sm">
+                  <span className="text-xs font-medium text-emerald-400 bg-emerald-900/20 px-3 py-1 rounded-full border border-emerald-500/20 shadow-sm">
                      {progressStats.percentage}% Done
                   </span>
                )}
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-              <div className="flex gap-1 overflow-x-auto no-scrollbar max-w-xs sm:max-w-md bg-gray-100/50 dark:bg-[#2f2f2f]/50 p-1 rounded-lg">
+              <div className="flex gap-1 overflow-x-auto no-scrollbar max-w-xs sm:max-w-md bg-[#121212] p-1 rounded-lg border border-white/5">
                   {roadmaps.map(rmap => (
                       <button
                           key={rmap.id}
                           onClick={() => onSelect(rmap.id)}
-                          className={`flex-shrink-0 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${activeId === rmap.id ? 'bg-white dark:bg-black text-notion-text dark:text-white shadow-sm' : 'text-gray-500 hover:text-notion-text dark:hover:text-gray-300'}`}
+                          className={`flex-shrink-0 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${activeId === rmap.id ? 'bg-white/[0.08] text-gray-100 shadow-sm border border-white/5' : 'text-gray-500 hover:text-gray-300'}`}
                       >
                           {rmap.title}
                       </button>
                   ))}
               </div>
-              <div className="w-px h-6 bg-gray-200 dark:bg-[#2f2f2f] mx-3 hidden md:block" />
+              <div className="w-px h-6 bg-white/10 mx-3 hidden md:block" />
               <div className="flex gap-1">
                   <button 
                       onClick={() => setIsAddModalOpen(true)}
-                      className="p-2 hover:bg-gray-100 dark:hover:bg-[#2f2f2f] rounded-lg text-gray-500 transition-colors"
+                      className="p-2 hover:bg-white/5 rounded-lg text-gray-500 hover:text-emerald-400 transition-all"
                       title="Add Roadmap"
                   >
                       <Plus className="w-5 h-5" />
@@ -234,14 +235,14 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
                       <>
                           <button 
                               onClick={handleEditOpen}
-                              className="p-2 hover:bg-gray-100 dark:hover:bg-[#2f2f2f] rounded-lg text-gray-500 transition-colors"
+                              className="p-2 hover:bg-white/5 rounded-lg text-gray-500 hover:text-blue-400 transition-all"
                               title="Edit JSON"
                           >
                               <Edit3 className="w-4 h-4" />
                           </button>
                           <button 
                               onClick={() => deleteRoadmap(activeRoadmap.id)}
-                              className="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-gray-400 hover:text-red-500 transition-colors"
+                              className="p-2 hover:bg-red-900/20 rounded-lg text-gray-500 hover:text-red-400 transition-all"
                               title="Delete"
                           >
                               <Trash2 className="w-4 h-4" />
@@ -332,27 +333,28 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
       </div>
 
       {/* Edit Modal */}
+      {/* Edit Modal */}
       <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Edit Roadmap Config">
         <div className="space-y-4">
-             <div className="p-4 bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-900/30 rounded-md mb-4">
-                <p className="text-xs text-yellow-800 dark:text-yellow-200 font-medium flex items-center gap-2">
+             <div className="p-4 bg-amber-900/10 border border-amber-500/20 rounded-xl mb-4">
+                <p className="text-xs text-amber-500 font-medium flex items-center gap-2">
                     <AlertTriangle className="w-4 h-4" />
                     Use strictly valid JSON format.
                 </p>
              </div>
             <textarea
-                className={`w-full h-[50vh] p-4 font-mono text-xs leading-relaxed bg-white dark:bg-[#191919] border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-notion-text dark:text-gray-200 resize-none ${error ? 'border-red-500' : 'border-gray-200 dark:border-[#2f2f2f]'}`}
+                className={`w-full h-[50vh] p-4 font-mono text-xs leading-relaxed bg-[#0A0A0A] border rounded-xl focus:outline-none focus:border-emerald-500/20 text-gray-300 resize-none ${error ? 'border-red-500/50' : 'border-white/5'}`}
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
                 placeholder="Paste JSON here..."
             />
-            {error && <p className="text-red-500 text-xs font-bold uppercase tracking-wide">{error}</p>}
+            {error && <p className="text-red-400 text-xs font-bold uppercase tracking-widest">{error}</p>}
             
             <motion.button 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleSaveEdit}
-              className="w-full py-3 bg-notion-text dark:bg-gray-200 text-white dark:text-black rounded-md font-bold text-xs uppercase tracking-wide"
+              className="w-full py-4 bg-emerald-900/20 text-emerald-400 border border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-emerald-900/30 transition-all"
             >
               Save Changes
             </motion.button>
@@ -363,19 +365,19 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
       <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="New Roadmap">
         <div className="space-y-6">
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wide text-gray-400 mb-2">Subject Name</label>
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">Subject Name</label>
               <input 
                 autoFocus
-                className="w-full text-lg border-b border-gray-200 dark:border-[#2f2f2f] py-2 focus:outline-none focus:border-black dark:focus:border-white bg-transparent"
+                className="w-full text-xl font-medium border-b border-white/10 py-2 focus:outline-none focus:border-emerald-500/50 bg-transparent text-gray-200"
                 placeholder="e.g. System Design, React Performance"
                 value={newRoadmapName}
                 onChange={e => setNewRoadmapName(e.target.value)}
               />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wide text-gray-400 mb-2">JSON Data</label>
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-2">JSON Data</label>
               <textarea
-                className={`w-full h-64 p-4 font-mono text-xs leading-relaxed bg-white dark:bg-[#191919] border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-notion-text dark:text-gray-200 resize-none ${error ? 'border-red-500' : 'border-gray-200 dark:border-[#2f2f2f]'}`}
+                className={`w-full h-64 p-4 font-mono text-xs leading-relaxed bg-[#0A0A0A] border rounded-xl focus:outline-none focus:border-emerald-500/20 text-gray-300 resize-none ${error ? 'border-red-500/50' : 'border-white/5'}`}
                 value={newRoadmapJson}
                 onChange={(e) => setNewRoadmapJson(e.target.value)}
                 placeholder="Paste JSON array here..."
@@ -393,20 +395,20 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
                       ]
                     }
                   ], null, 2))}
-                  className="text-xs text-gray-400 hover:text-black dark:hover:text-white underline cursor-pointer bg-transparent border-none"
+                  className="text-[10px] text-gray-500 hover:text-emerald-400 underline cursor-pointer bg-transparent border-none transition-colors"
                 >
                   Load Example Template
                 </button>
               </div>
             </div>
-            {error && <p className="text-red-500 text-xs font-bold uppercase tracking-wide">{error}</p>}
+            {error && <p className="text-red-400 text-xs font-bold uppercase tracking-widest">{error}</p>}
             
             <motion.button 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleAddRoadmap}
               disabled={!newRoadmapName}
-              className="w-full py-3 bg-notion-text dark:bg-gray-200 text-white dark:text-black rounded-md font-bold text-xs uppercase tracking-wide disabled:opacity-50"
+              className="w-full py-4 bg-emerald-900/20 text-emerald-400 border border-emerald-500/20 rounded-xl font-bold text-xs uppercase tracking-widest hover:bg-emerald-900/30 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
             >
               Create Roadmap
             </motion.button>
