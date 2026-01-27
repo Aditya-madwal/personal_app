@@ -36,24 +36,23 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-lg bg-white dark:bg-[#1C1C1E] rounded-[2.5rem] overflow-hidden border border-notion-border dark:border-notion-darkBorder transition-colors duration-500 shadow-2xl"
+            className="relative w-full max-w-lg bg-white dark:bg-[#191919] rounded-lg overflow-hidden border border-notion-border dark:border-[#2f2f2f] transition-colors duration-200 shadow-xl"
           >
-            <div className="p-10">
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-3xl font-serif text-notion-text dark:text-notion-darkText italic tracking-tight">{title}</h2>
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-semibold text-notion-text dark:text-gray-200">{title}</h2>
                 <motion.button 
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
+                  whileHover={{ backgroundColor: 'rgba(0,0,0,0.05)' }}
                   onClick={onClose}
-                  className="p-2 hover:bg-notion-hover dark:hover:bg-notion-darkHover rounded-full transition-colors"
+                  className="p-1 rounded-sm text-gray-400 hover:text-black dark:hover:text-white transition-colors"
                 >
-                  <X className="w-6 h-6 text-notion-muted dark:text-notion-darkMuted" />
+                  <X className="w-5 h-5" />
                 </motion.button>
               </div>
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1, duration: 0.4 }}
+                transition={{ delay: 0.1, duration: 0.2 }}
               >
                 {children}
               </motion.div>

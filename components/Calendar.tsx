@@ -55,88 +55,77 @@ const Calendar: React.FC<CalendarProps> = ({ events, onAddEvent, onEventClick })
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="bg-white dark:bg-[#1C1C1E] rounded-[2rem] p-6 border border-notion-border dark:border-notion-darkBorder transition-colors duration-500 shadow-sm"
+      className="flex flex-col h-full bg-white dark:bg-[#191919] rounded-2xl border border-gray-200/60 dark:border-[#2f2f2f] shadow-sm transition-all duration-500 overflow-hidden hover:shadow-md"
     >
-      <div className="flex flex-col sm:flex-row items-center justify-between mb-6 px-2 gap-4 sm:gap-0">
-        <div className="flex items-center justify-between w-full sm:w-auto gap-6">
+      <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 dark:border-[#2f2f2f]">
+        <div className="flex items-center gap-4">
           <motion.h2 
             key={monthName}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-2xl font-serif text-notion-text dark:text-notion-darkText"
+            className="text-xl font-semibold text-notion-text dark:text-gray-100 flex items-baseline gap-2"
           >
-            {monthName} <span className="text-notion-muted dark:text-notion-darkMuted font-light">{year}</span>
+            {monthName} <span className="text-sm text-gray-400 font-normal">{year}</span>
           </motion.h2>
-          <div className="flex gap-2 bg-notion-hover/50 dark:bg-notion-darkHover/50 p-1.5 rounded-full">
-            <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={prevMonth} className="p-2 hover:bg-white dark:hover:bg-notion-darkBorder rounded-full transition-colors">
-              <ChevronLeft className="w-5 h-5" />
+          <div className="flex bg-gray-50 dark:bg-[#2f2f2f] rounded-lg p-1 gap-1">
+            <motion.button whileHover={{ backgroundColor: 'rgba(0,0,0,0.05)' }} onClick={prevMonth} className="p-1.5 rounded-md text-gray-500 dark:text-gray-400 transition-colors">
+              <ChevronLeft className="w-4 h-4" />
             </motion.button>
-            <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={nextMonth} className="p-2 hover:bg-white dark:hover:bg-notion-darkBorder rounded-full transition-colors">
-              <ChevronRight className="w-5 h-5" />
+            <motion.button whileHover={{ backgroundColor: 'rgba(0,0,0,0.05)' }} onClick={nextMonth} className="p-1.5 rounded-md text-gray-500 dark:text-gray-400 transition-colors">
+              <ChevronRight className="w-4 h-4" />
             </motion.button>
           </div>
         </div>
         
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <button 
           onClick={() => onAddEvent()}
-          className="w-full sm:w-auto flex justify-center items-center gap-2 bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg px-6 py-3 rounded-full font-medium text-sm transition-colors"
+          className="text-xs bg-notion-text dark:bg-[#37352f] text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-all shadow-sm active:scale-95"
         >
-          <Plus className="w-4 h-4" />
-          <span>New Event</span>
-        </motion.button>
+          New Event
+        </button>
       </div>
 
-      <div className="grid grid-cols-7 mb-3">
+      <div className="grid grid-cols-7 border-b border-gray-100 dark:border-[#2f2f2f]">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
-          <div key={d} className="text-center text-[10px] font-bold text-notion-muted dark:text-notion-darkMuted uppercase tracking-[0.3em] py-2 opacity-50">
+          <div key={d} className="text-center text-[10px] font-medium text-gray-400 uppercase py-2 border-r border-gray-50 dark:border-[#2f2f2f] last:border-r-0">
             {d}
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-px bg-notion-border dark:bg-notion-darkBorder rounded-2xl sm:rounded-3xl overflow-hidden border border-notion-border dark:border-notion-darkBorder shadow-sm">
+      <div className="flex-1 grid grid-cols-7 grid-rows-5 sm:grid-rows-6">
         {calendarGrid.map((day, idx) => (
           <div 
             key={idx} 
-            className={`min-h-[60px] sm:min-h-[90px] bg-white dark:bg-[#1C1C1E] p-1 sm:p-2 group transition-colors duration-300 hover:bg-notion-hover/40 dark:hover:bg-notion-darkHover/40 ${day === null ? 'bg-bone/40 dark:bg-darkbg/20' : ''}`}
+            className={`
+              relative p-1 border-b border-r border-gray-100 dark:border-[#2f2f2f] 
+              ${(idx + 1) % 7 === 0 ? 'border-r-0' : ''} 
+              bg-white dark:bg-[#191919] 
+              hover:bg-gray-50 dark:hover:bg-[#202020] transition-colors
+              flex flex-col
+            `}
+            onClick={() => day && onAddEvent(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)}
           >
             {day && (
-              <div className="h-full flex flex-col">
-                <div className="flex justify-between items-start mb-2">
-                  <span className={`text-xs sm:text-sm font-medium w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full transition-colors ${isToday(day) ? 'bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg' : 'text-notion-text dark:text-notion-darkText group-hover:text-black dark:group-hover:text-white'}`}>
+              <>
+                <div className="flex justify-between items-start mb-1">
+                  <span className={`text-xs font-medium w-6 h-6 flex items-center justify-center rounded-sm ${isToday(day) ? 'bg-red-500 text-white' : 'text-gray-500 dark:text-gray-400'}`}>
                     {day}
                   </span>
-                  <motion.button 
-                    initial={{ opacity: 0 }}
-                    whileHover={{ scale: 1.2 }}
-                    className="group-hover:opacity-100 p-1.5 hover:bg-notion-hover dark:hover:bg-notion-darkHover rounded-lg transition-all"
-                    onClick={() => onAddEvent(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`)}
-                  >
-                    <Plus className="w-4 h-4 text-notion-muted dark:text-notion-darkMuted" />
-                  </motion.button>
                 </div>
-                <div className="flex flex-col gap-1.5 mt-1">
-                  <AnimatePresence mode="popLayout">
-                    {getEventsForDay(day).map(event => (
-                      <motion.button 
-                        layoutId={event.id}
-                        key={event.id} 
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        whileHover={{ x: 2, filter: 'brightness(0.9)' }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => onEventClick(event)}
-                        className={`${event.color} dark:brightness-75 text-[9px] sm:text-[10px] px-1.5 py-1 sm:px-2.5 sm:py-2 rounded-lg sm:rounded-xl font-semibold truncate border border-black/5 dark:text-black text-left transition-all`}
-                      >
-                        {event.title}
-                      </motion.button>
-                    ))}
-                  </AnimatePresence>
+                <div className="flex-1 overflow-y-auto w-full space-y-0.5 no-scrollbar">
+                  {getEventsForDay(day).map(event => (
+                    <motion.button 
+                      layoutId={event.id}
+                      key={event.id} 
+                      onClick={(e) => { e.stopPropagation(); onEventClick(event); }}
+                      className={`${event.color} bg-opacity-20 hover:bg-opacity-30 text-[10px] px-1.5 py-0.5 rounded-sm font-medium truncate w-full text-left text-notion-text dark:text-gray-200 block`}
+                    >
+                      {event.title}
+                    </motion.button>
+                  ))}
                 </div>
-              </div>
+              </>
             )}
           </div>
         ))}

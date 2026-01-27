@@ -190,84 +190,71 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
   }
 
   return (
-    <div className="w-full bg-white dark:bg-[#1C1C1E]/50 border border-notion-border dark:border-notion-darkBorder rounded-[2.5rem] p-8 mt-8 shadow-sm transition-all duration-500">
+    <div className="w-full bg-white dark:bg-[#191919] border border-gray-200/60 dark:border-[#2f2f2f] rounded-2xl mt-4 transition-all duration-500 overflow-hidden shadow-sm hover:shadow-md">
       
       {/* Header Section */}
-      <div className="flex flex-col gap-6 mb-8">
+      <div className="px-6 py-5 border-b border-gray-100 dark:border-[#2f2f2f] bg-gray-50/30 dark:bg-[#202020]">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div>
-            <div className="flex items-center gap-3 text-notion-muted dark:text-notion-darkMuted text-[10px] font-bold tracking-[0.4em] uppercase opacity-60 mb-2">
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>Learning Journey</span>
-            </div>
-              <div className="flex items-baseline gap-4">
-                <h2 className="text-3xl font-serif text-notion-text dark:text-notion-darkText italic">
+          <div className="flex items-center gap-4">
+               <div className="p-2 bg-white dark:bg-[#2f2f2f] rounded-lg shadow-sm border border-gray-100 dark:border-transparent">
+                  <BookOpen className="w-4 h-4 text-gray-400" />
+               </div>
+               <h2 className="text-xl font-semibold text-notion-text dark:text-gray-200">
                   {activeRoadmap?.title || 'Select Roadmap'}
-                </h2>
-                {isUpdating && <Loader2 className="w-4 h-4 text-notion-muted animate-spin" />}
-                {activeRoadmap && !isUpdating && (
-                   <span className="text-sm font-mono text-notion-muted dark:text-notion-darkMuted">
-                      {progressStats.completed}/{progressStats.total} Completed ({progressStats.percentage}%)
-                   </span>
-                )}
-              </div>
+               </h2>
+               {activeRoadmap && !isUpdating && (
+                  <span className="text-xs font-medium text-gray-500 dark:text-gray-400 bg-white dark:bg-[#2f2f2f] px-3 py-1 rounded-full border border-gray-100 dark:border-transparent shadow-sm">
+                     {progressStats.percentage}% Done
+                  </span>
+               )}
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-              <div className="flex p-1 bg-notion-hover dark:bg-notion-darkHover rounded-full overflow-x-auto no-scrollbar max-w-full">
+              <div className="flex gap-1 overflow-x-auto no-scrollbar max-w-xs sm:max-w-md bg-gray-100/50 dark:bg-[#2f2f2f]/50 p-1 rounded-lg">
                   {roadmaps.map(rmap => (
                       <button
                           key={rmap.id}
                           onClick={() => onSelect(rmap.id)}
-                          className={`flex-shrink-0 px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${activeId === rmap.id ? 'bg-white dark:bg-[#2C2C2E] text-notion-text dark:text-notion-darkText shadow-sm' : 'text-notion-muted dark:text-notion-darkMuted hover:text-notion-text dark:hover:text-notion-darkText'}`}
+                          className={`flex-shrink-0 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${activeId === rmap.id ? 'bg-white dark:bg-black text-notion-text dark:text-white shadow-sm' : 'text-gray-500 hover:text-notion-text dark:hover:text-gray-300'}`}
                       >
                           {rmap.title}
                       </button>
                   ))}
               </div>
-              <div className="w-px h-8 bg-notion-border dark:bg-notion-darkBorder mx-2 hidden md:block" />
-              <div className="flex gap-2">
+              <div className="w-px h-6 bg-gray-200 dark:bg-[#2f2f2f] mx-3 hidden md:block" />
+              <div className="flex gap-1">
                   <button 
                       onClick={() => setIsAddModalOpen(true)}
-                      className="flex items-center gap-2 px-4 py-2.5 bg-notion-hover dark:bg-notion-darkHover hover:bg-notion-border dark:hover:bg-notion-darkBorder rounded-full text-[10px] font-bold uppercase tracking-widest text-notion-text dark:text-notion-darkText transition-colors"
+                      className="p-2 hover:bg-gray-100 dark:hover:bg-[#2f2f2f] rounded-lg text-gray-500 transition-colors"
+                      title="Add Roadmap"
                   >
-                      <Plus className="w-3.5 h-3.5" />
-                      <span className="hidden sm:inline">Add</span>
+                      <Plus className="w-5 h-5" />
                   </button>
                   {activeRoadmap && (
                       <>
                           <button 
                               onClick={handleEditOpen}
-                              className="flex items-center gap-2 px-4 py-2.5 bg-notion-hover dark:bg-notion-darkHover hover:bg-notion-border dark:hover:bg-notion-darkBorder rounded-full text-[10px] font-bold uppercase tracking-widest text-notion-text dark:text-notion-darkText transition-colors"
+                              className="p-2 hover:bg-gray-100 dark:hover:bg-[#2f2f2f] rounded-lg text-gray-500 transition-colors"
+                              title="Edit JSON"
                           >
-                              <Edit3 className="w-3.5 h-3.5" />
-                              <span className="hidden sm:inline">JSON</span>
+                              <Edit3 className="w-4 h-4" />
                           </button>
                           <button 
                               onClick={() => deleteRoadmap(activeRoadmap.id)}
-                              className="p-2.5 bg-notion-hover dark:bg-notion-darkHover hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full text-notion-muted dark:text-notion-darkMuted hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                              className="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-gray-400 hover:text-red-500 transition-colors"
+                              title="Delete"
                           >
-                              <Trash2 className="w-3.5 h-3.5" />
+                              <Trash2 className="w-4 h-4" />
                           </button>
                       </>
                   )}
               </div>
           </div>
         </div>
-
-        {/* Progress Bar */}
-        <div className="w-full h-1 bg-notion-hover dark:bg-notion-darkHover rounded-full overflow-hidden">
-          <motion.div 
-            className="h-full bg-notion-text dark:bg-notion-darkText"
-            initial={{ width: 0 }}
-            animate={{ width: `${progressStats.percentage}%` }}
-            transition={{ duration: 1, ease: "easeOut" }}
-          />
-        </div>
       </div>
 
       {/* Content Section */}
-      <div className="flex flex-col gap-6">
+      <div className="p-6 min-h-[300px]">
         {activeRoadmap && activeRoadmap.data.map((topicObj, index) => {
           const topicName = Object.keys(topicObj)[0];
           const subtopics = topicObj[topicName];
@@ -276,34 +263,23 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
           const isTopicComplete = completedCount === subtopics.length && subtopics.length > 0;
 
           return (
-            <motion.div
-              layout
+            <div
               key={index}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-              className={`group border-b border-notion-border dark:border-notion-darkBorder/50 pb-4 last:border-0 ${isExpanded ? '' : ''}`}
+              className="group mb-2"
             >
               <button
                 onClick={() => toggleTopic(index)}
-                className="w-full flex items-center justify-between py-2 text-left group hover:opacity-80 transition-opacity"
+                className="w-full flex items-center gap-2 py-1 text-left hover:bg-gray-50 dark:hover:bg-[#202020] rounded-sm transition-colors px-2"
               >
-                <div className="flex items-center gap-4">
-                  <div className={`transition-transform duration-300 ${isExpanded ? 'rotate-90' : 'rotate-0'}`}>
-                    <ChevronRight className="w-4 h-4 text-notion-muted dark:text-notion-darkMuted" />
-                  </div>
-                  <div>
-                    <h3 className={`font-serif text-xl leading-tight transition-colors ${isTopicComplete ? 'text-notion-muted dark:text-notion-darkMuted line-through decoration-notion-muted/50' : 'text-notion-text dark:text-notion-darkText'}`}>
-                      {topicName}
-                    </h3>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                    <span className="text-[10px] font-bold uppercase tracking-widest text-notion-muted dark:text-notion-darkMuted opacity-50">
-                       {completedCount}/{subtopics.length}
-                    </span>
-                   {isTopicComplete && <CheckCircle2 className="w-5 h-5 text-green-600 dark:text-green-400 opacity-80" />}
-                </div>
+                 <div className={`transition-transform duration-200 text-gray-400 ${isExpanded ? 'rotate-90' : 'rotate-0'}`}>
+                   <ChevronRight className="w-3.5 h-3.5" />
+                 </div>
+                 <h3 className={`font-medium text-sm flex-1 ${isTopicComplete ? 'text-gray-400 line-through' : 'text-notion-text dark:text-gray-200'}`}>
+                   {topicName}
+                 </h3>
+                 <span className="text-[10px] font-mono text-gray-400">
+                    {completedCount}/{subtopics.length}
+                 </span>
               </button>
               
               <AnimatePresence>
@@ -312,36 +288,36 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.2 }}
                   >
-                    <div className="pl-8 pt-4 grid gap-1">
+                    <div className="pl-8 py-1 grid gap-0.5">
                       {subtopics.map((sub, subIndex) => (
                          <div
                            key={subIndex}
-                           className="flex items-center gap-3 py-2 group/item"
+                           className="flex items-center gap-2 py-1 group/item hover:bg-gray-50 dark:hover:bg-[#202020] rounded-sm px-2 -ml-2"
                          >
                            <button
                              onClick={() => toggleSubtopic(index, subIndex)}
-                             className="flex-shrink-0 transition-all text-notion-muted hover:text-notion-text dark:text-notion-darkMuted dark:hover:text-notion-darkText"
+                             className="flex-shrink-0 text-gray-300 hover:text-notion-text dark:hover:text-gray-200 transition-colors"
                            >
                              {sub.completed ? (
-                               <CheckCircle2 className="w-5 h-5 text-notion-text dark:text-notion-darkText fill-notion-text/10 dark:fill-notion-darkText/10" />
+                               <CheckCircle2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                              ) : (
-                               <Circle className="w-5 h-5 opacity-40 group-hover/item:opacity-100" />
+                               <Circle className="w-4 h-4 hover:border-blue-500" />
                              )}
                            </button>
                            
-                           <div className="flex-1 min-w-0 flex items-center gap-3">
-                             <span className={`text-sm truncate transition-colors ${sub.completed ? 'text-notion-muted dark:text-notion-darkMuted line-through decoration-notion-border dark:decoration-notion-darkBorder' : 'text-notion-text dark:text-notion-darkText'}`}>
+                           <div className="flex-1 min-w-0 flex items-center gap-2">
+                             <span className={`text-sm truncate ${sub.completed ? 'text-gray-400 line-through' : 'text-notion-text dark:text-gray-300'}`}>
                                {sub.subtopic_name}
                              </span>
                              <a 
                                href={sub.resource_url}
                                target="_blank" 
                                rel="noopener noreferrer"
-                               className="opacity-0 group-hover/item:opacity-100 transition-opacity p-1 hover:bg-notion-hover dark:hover:bg-notion-darkHover rounded-full"
+                               className="opacity-0 group-hover/item:opacity-100 transition-opacity p-1 hover:text-blue-600 dark:hover:text-blue-400 text-gray-400"
                              >
-                               <ExternalLink className="w-3.5 h-3.5 text-notion-muted" />
+                               <ExternalLink className="w-3 h-3" />
                              </a>
                            </div>
                          </div>
@@ -350,7 +326,7 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </div>
           );
         })}
       </div>
@@ -358,14 +334,14 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
       {/* Edit Modal */}
       <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Edit Roadmap Config">
         <div className="space-y-4">
-             <div className="p-4 bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-900/30 rounded-xl mb-4">
+             <div className="p-4 bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-200 dark:border-yellow-900/30 rounded-md mb-4">
                 <p className="text-xs text-yellow-800 dark:text-yellow-200 font-medium flex items-center gap-2">
                     <AlertTriangle className="w-4 h-4" />
                     Use strictly valid JSON format.
                 </p>
              </div>
             <textarea
-                className={`w-full h-[50vh] p-4 font-mono text-xs leading-relaxed bg-bone dark:bg-black/20 border rounded-2xl focus:outline-none focus:ring-1 focus:ring-notion-text/20 dark:focus:ring-notion-darkText/20 text-notion-text dark:text-notion-darkText resize-none ${error ? 'border-red-500' : 'border-notion-border dark:border-notion-darkBorder'}`}
+                className={`w-full h-[50vh] p-4 font-mono text-xs leading-relaxed bg-white dark:bg-[#191919] border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-notion-text dark:text-gray-200 resize-none ${error ? 'border-red-500' : 'border-gray-200 dark:border-[#2f2f2f]'}`}
                 value={editContent}
                 onChange={(e) => setEditContent(e.target.value)}
                 placeholder="Paste JSON here..."
@@ -376,7 +352,7 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleSaveEdit}
-              className="w-full py-4 bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg rounded-full font-bold text-xs uppercase tracking-[0.2em]"
+              className="w-full py-3 bg-notion-text dark:bg-gray-200 text-white dark:text-black rounded-md font-bold text-xs uppercase tracking-wide"
             >
               Save Changes
             </motion.button>
@@ -387,24 +363,24 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
       <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="New Roadmap">
         <div className="space-y-6">
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-notion-muted dark:text-notion-darkMuted mb-2 opacity-50">Subject Name</label>
+              <label className="block text-[10px] font-bold uppercase tracking-wide text-gray-400 mb-2">Subject Name</label>
               <input 
                 autoFocus
-                className="w-full text-xl font-serif border-b border-notion-border dark:border-notion-darkBorder py-2 focus:outline-none focus:border-notion-text dark:focus:border-notion-darkText bg-transparent"
+                className="w-full text-lg border-b border-gray-200 dark:border-[#2f2f2f] py-2 focus:outline-none focus:border-black dark:focus:border-white bg-transparent"
                 placeholder="e.g. System Design, React Performance"
                 value={newRoadmapName}
                 onChange={e => setNewRoadmapName(e.target.value)}
               />
             </div>
             <div>
-              <label className="block text-[10px] font-bold uppercase tracking-[0.3em] text-notion-muted dark:text-notion-darkMuted mb-2 opacity-50">JSON Data</label>
+              <label className="block text-[10px] font-bold uppercase tracking-wide text-gray-400 mb-2">JSON Data</label>
               <textarea
-                className={`w-full h-64 p-4 font-mono text-xs leading-relaxed bg-bone dark:bg-black/20 border rounded-2xl focus:outline-none focus:ring-1 focus:ring-notion-text/20 dark:focus:ring-notion-darkText/20 text-notion-text dark:text-notion-darkText resize-none ${error ? 'border-red-500' : 'border-notion-border dark:border-notion-darkBorder'}`}
+                className={`w-full h-64 p-4 font-mono text-xs leading-relaxed bg-white dark:bg-[#191919] border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 text-notion-text dark:text-gray-200 resize-none ${error ? 'border-red-500' : 'border-gray-200 dark:border-[#2f2f2f]'}`}
                 value={newRoadmapJson}
                 onChange={(e) => setNewRoadmapJson(e.target.value)}
                 placeholder="Paste JSON array here..."
               />
-              <div className="flex justify-end">
+              <div className="flex justify-end mt-2">
                 <button 
                   onClick={() => setNewRoadmapJson(JSON.stringify([
                     {
@@ -417,7 +393,7 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
                       ]
                     }
                   ], null, 2))}
-                  className="text-[10px] text-notion-muted hover:text-notion-text underline cursor-pointer bg-transparent border-none"
+                  className="text-xs text-gray-400 hover:text-black dark:hover:text-white underline cursor-pointer bg-transparent border-none"
                 >
                   Load Example Template
                 </button>
@@ -430,7 +406,7 @@ const Roadmap: React.FC<RoadmapProps> = ({ roadmaps, activeId, onSelect, onAdd, 
               whileTap={{ scale: 0.98 }}
               onClick={handleAddRoadmap}
               disabled={!newRoadmapName}
-              className="w-full py-4 bg-notion-text dark:bg-notion-darkText text-bone dark:text-darkbg rounded-full font-bold text-xs uppercase tracking-[0.2em] disabled:opacity-50"
+              className="w-full py-3 bg-notion-text dark:bg-gray-200 text-white dark:text-black rounded-md font-bold text-xs uppercase tracking-wide disabled:opacity-50"
             >
               Create Roadmap
             </motion.button>

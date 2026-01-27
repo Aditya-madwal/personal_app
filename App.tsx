@@ -280,7 +280,7 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-bone dark:bg-darkbg selection:bg-notion-hover dark:selection:bg-notion-darkHover selection:text-notion-text dark:selection:text-notion-darkText overflow-x-hidden transition-colors duration-500">
-      <header className="max-w-7xl mx-auto pt-10 pb-8 px-4 sm:px-10 flex justify-between items-end">
+      <header className="max-w-7xl mx-auto pt-10 pb-8 px-10 sm:px-10 flex justify-between items-end">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -309,27 +309,20 @@ const App: React.FC = () => {
         </motion.div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-10 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column (8 units) */}
-        <div className="lg:col-span-8 space-y-8">
-          <Calendar 
-            events={events} 
-            onAddEvent={openAddEvent} 
-            onEventClick={(e) => setSelectedEvent(e)}
-          />
-        </div>
-
-        {/* Right Column (4 units) */}
-        <div className="lg:col-span-4 flex flex-col gap-6 sticky top-6">
-          <div className="h-auto">
-            <TodoList 
-              tasks={tasks} 
-              onToggle={toggleTask} 
-              onDelete={deleteTask}
-              onAddTask={() => setIsTaskModalOpen(true)}
+      <main className="max-w-[95vw] mx-auto px-4 sm:px-6 pb-20 space-y-4">
+        {/* Top Section: Calendar and Resources */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:h-[600px] h-auto">
+          {/* Calendar (9 units) */}
+          <div className="lg:col-span-9 h-full min-h-[500px] lg:min-h-0 flex flex-col">
+            <Calendar 
+              events={events} 
+              onAddEvent={openAddEvent} 
+              onEventClick={(e) => setSelectedEvent(e)}
             />
           </div>
-          <div className="h-auto">
+
+          {/* Resources (3 units) */}
+          <div className="lg:col-span-3 h-full min-h-[300px] lg:min-h-0 flex flex-col">
             <ResourceList 
               resources={resources} 
               onDelete={deleteResource}
@@ -338,8 +331,18 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Full Width Roadmap Section */}
-        <div className="lg:col-span-12">
+        {/* Task Table Section (Full Width) */}
+        <div className="w-full">
+            <TodoList 
+              tasks={tasks} 
+              onToggle={toggleTask} 
+              onDelete={deleteTask}
+              onAddTask={() => setIsTaskModalOpen(true)}
+            />
+        </div>
+
+        {/* Roadmap Section (Full Width) */}
+        <div className="w-full">
             <Roadmap 
               roadmaps={roadmaps}
               activeId={activeRoadmapId}
